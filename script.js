@@ -94,11 +94,21 @@ function addBookCard(title, author, pages, isRead) {
   book.appendChild(bookRemove);
   library.appendChild(book);
 
-  bookRemove.addEventListener("click", ()=> {
-    console.log(title);
-    console.log(myLibrary.findIndex(myLibrary => myLibrary.title === title))
+  let index = myLibrary.findIndex(myLibrary => myLibrary.title === title);
+
+  checkboxInput.addEventListener("click", () => {
+    if (myLibrary[index].isRead === true) {
+      myLibrary[index].isRead = false;
+      console.log("true");
+    } else {
+      myLibrary[index].isRead = true;
+      console.log("false");
+    }
+  })
+
+  bookRemove.addEventListener("click", () => {
     library.removeChild(book);
-    myLibrary.splice(myLibrary.findIndex(myLibrary => myLibrary.title === title), 1);
+    myLibrary.splice(index, 1);
   })
 }
 
