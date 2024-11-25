@@ -57,6 +57,9 @@ function addBookCard(title, author, pages, isRead) {
   const bookIsRead = document.createElement("label");
   const checkboxSpan = document.createElement("span");
   const checkboxInput = document.createElement("input");
+  const bookRemove = document.createElement("div");
+  const bookRemoveText = document.createElement("span");
+  const bookRemoveIcon = document.createElement("img");
 
   book.classList.add("book");
   bookTitle.textContent = title;
@@ -70,6 +73,11 @@ function addBookCard(title, author, pages, isRead) {
   checkboxSpan.classList.add("checkbox__span")
   checkboxInput.setAttribute("type", "checkbox");
   checkboxInput.classList.add("checkbox__input")
+  bookRemove.classList.add("book-remove");
+  bookRemoveText.textContent = "Remove book";
+  bookRemoveText.classList.add("book-remove-text");
+  bookRemoveIcon.classList.add("book-remove-icon");
+  bookRemoveIcon.setAttribute("src", "icons/close_remove_delete_cross_icon.png");
 
   if (isRead === true) {
     checkboxInput.setAttribute("checked", "");
@@ -81,7 +89,17 @@ function addBookCard(title, author, pages, isRead) {
   bookIsRead.appendChild(checkboxSpan);
   bookIsRead.appendChild(checkboxInput);
   book.appendChild(bookIsRead);
+  bookRemove.appendChild(bookRemoveText);
+  bookRemove.appendChild(bookRemoveIcon);
+  book.appendChild(bookRemove);
   library.appendChild(book);
+
+  bookRemove.addEventListener("click", ()=> {
+    console.log(title);
+    console.log(myLibrary.findIndex(myLibrary => myLibrary.title === title))
+    library.removeChild(book);
+    myLibrary.splice(myLibrary.findIndex(myLibrary => myLibrary.title === title), 1);
+  })
 }
 
 function bookCard() {
