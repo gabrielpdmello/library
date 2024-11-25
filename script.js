@@ -1,7 +1,11 @@
-const libraryContainer = document.querySelector(".library");
+const library = document.querySelector(".library");
 const addBookToggle = document.querySelector(".add-book-toggle");
 const addBook = document.querySelector(".add-book");
 const body = document.body;
+const addBookTitleInput = document.querySelector(".book-title-input");
+const addBookAuthorInput = document.querySelector(".book-author-input");
+const addBookPagesInput = document.querySelector(".book-pages-input");
+const addBookIsReadInput = document.querySelector(".book-read-input");
 const addBookSubmit = document.querySelector(".add-book-submit");
 
 const myLibrary = [
@@ -35,43 +39,55 @@ function Book(title, author, pages, isRead) {
 }
 
 function addBookToLibrary() {
+  console.log("teste");
+  const title = addBookTitleInput.value;
+  const author = addBookAuthorInput.value;
+  const pages = addBookPagesInput.value;
+  const isRead = addBookIsReadInput.checked;
+  const book = new Book(title, author, pages, isRead);
+  myLibrary.push(book);
+  addBookCard(title, author, pages, isRead);
   
+}
+
+function addBookCard(title, author, pages, isRead) {
+  const book = document.createElement("div");
+  const bookTitle = document.createElement("h2");
+  const bookAuthor = document.createElement("p");
+  const bookPages = document.createElement("p");
+  const bookIsRead = document.createElement("label");
+  const checkboxSpan = document.createElement("span");
+  const checkboxInput = document.createElement("input");
+
+  book.classList.add("book");
+  bookTitle.textContent = title;
+  bookTitle.classList.add("bookTitle");
+  bookAuthor.textContent = `by ${author}`;
+  bookAuthor.classList.add("bookAuthor");
+  bookPages.textContent = `${pages} pages`;
+  bookPages.classList.add("bookPages");
+  bookIsRead.classList.add("bookIsRead");
+  checkboxSpan.textContent = "Book read";
+  checkboxSpan.classList.add("checkbox__span")
+  checkboxInput.setAttribute("type", "checkbox");
+  checkboxInput.classList.add("checkbox__input")
+
+  if (isRead === true) {
+    checkboxInput.setAttribute("checked", "");
+  }
+
+  book.appendChild(bookTitle);
+  book.appendChild(bookAuthor);
+  book.appendChild(bookPages);
+  bookIsRead.appendChild(checkboxSpan);
+  bookIsRead.appendChild(checkboxInput);
+  book.appendChild(bookIsRead);
+  library.appendChild(book);
 }
 
 function bookCard() {
   myLibrary.forEach((item, index, array)=> {
-    const book = document.createElement("div");
-    const title = document.createElement("h2");
-    const author = document.createElement("p");
-    const pages = document.createElement("p");
-    const isRead = document.createElement("label");
-    const checkboxSpan = document.createElement("span");
-    const checkboxInput = document.createElement("input");
-
-    book.classList.add("book");
-    title.textContent = array[index].title;
-    title.classList.add("bookTitle");
-    author.textContent = `by ${array[index].author}`;
-    author.classList.add("bookAuthor");
-    pages.textContent = `${array[index].pages} pages`;
-    pages.classList.add("bookPages");
-    isRead.classList.add("bookIsRead");
-    checkboxSpan.textContent = "Book read";
-    checkboxSpan.classList.add("checkbox__span")
-    checkboxInput.setAttribute("type", "checkbox");
-    checkboxInput.classList.add("checkbox__input")
-
-    if (array[index].isRead === true) {
-      checkboxInput.setAttribute("checked", "");
-    }
-
-    book.appendChild(title);
-    book.appendChild(author);
-    book.appendChild(pages);
-    isRead.appendChild(checkboxSpan);
-    isRead.appendChild(checkboxInput);
-    book.appendChild(isRead);
-    libraryContainer.appendChild(book);
+    addBookCard(array[index].title, array[index].author, array[index].pages, array[index].isRead);
   })
 }
 
@@ -85,4 +101,14 @@ document.addEventListener("click", e => {
   }
 });
 
-addBookSubmit.addEventListener("click", addBookToLibrary);
+addBookSubmit.addEventListener("click", (event) => {
+  event.preventDefault();
+  addBookToLibrary();
+  addBook.classList.add("hide");
+
+  addBookTitleInput.value = "";
+  addBookAuthorInput.value = "";
+  addBookPagesInput.value = "";
+  addBookIsReadInput.checked = false;
+  
+});

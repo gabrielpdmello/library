@@ -15,28 +15,28 @@
         <img class="add-book-icon" src="icons/add_plus_new_icon.png" title="add a new book to the library">
     </span>
 
-    <div class="add-book hide">
+    <form class="add-book hide">
         <label class="book-title">
             <span>Book Title</span>
-            <input class="book-title-input" type="text" name="title">
+            <input class="book-title-input" type="text" name="title" required>
         </label>
 
         <label class="book-author">
             <span>Book Author</span>
-            <input class="book-author-input" type="text" name="title">
+            <input class="book-author-input" type="text" name="title" required>
         </label>
 
         <label class="book-pages">
             <span>Book Pages</span>
-            <input class="book-pages-input" type="number" name="pages">
+            <input class="book-pages-input" type="number" name="pages" required>
         </label>
 
         <label class="add-book-read">
             <span class="checkbox__span">Book read</span>
-            <input class="book-read-input" type="checkbox" class="checkbox__input">
+            <input class="book-read-input checkbox__input" type="checkbox">
         </label>
 
         <button class="add-book-submit" type="submit">Add book</button>
-    </div>
+    </form>
 </body>
 </html>
