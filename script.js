@@ -39,7 +39,6 @@ function Book(title, author, pages, isRead) {
 }
 
 function addBookToLibrary() {
-  console.log("teste");
   const title = addBookTitleInput.value;
   const author = addBookAuthorInput.value;
   const pages = addBookPagesInput.value;
@@ -103,12 +102,14 @@ document.addEventListener("click", e => {
 
 addBookSubmit.addEventListener("click", (event) => {
   event.preventDefault();
-  addBookToLibrary();
-  addBook.classList.add("hide");
 
-  addBookTitleInput.value = "";
-  addBookAuthorInput.value = "";
-  addBookPagesInput.value = "";
-  addBookIsReadInput.checked = false;
-  
+  if (addBookTitleInput.value !== "" && addBookAuthorInput.value !== "" && addBookPagesInput.value !== "" ) {
+    addBookToLibrary();
+    addBook.classList.add("hide");
+
+    addBookTitleInput.value = "";
+    addBookAuthorInput.value = "";
+    addBookPagesInput.value = "";
+    addBookIsReadInput.checked = false;
+  }
 });
