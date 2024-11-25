@@ -94,19 +94,18 @@ function addBookCard(title, author, pages, isRead) {
   book.appendChild(bookRemove);
   library.appendChild(book);
 
-  let index = myLibrary.findIndex(myLibrary => myLibrary.title === title);
-
   checkboxInput.addEventListener("click", () => {
+    let index = myLibrary.findIndex(myLibrary => myLibrary.title === title);
     if (myLibrary[index].isRead === true) {
       myLibrary[index].isRead = false;
-      console.log("true");
     } else {
       myLibrary[index].isRead = true;
-      console.log("false");
     }
   })
 
   bookRemove.addEventListener("click", () => {
+    let index = myLibrary.findIndex(myLibrary => myLibrary.title === title);
+    console.log(`${title} removed`)
     library.removeChild(book);
     myLibrary.splice(index, 1);
   })
@@ -134,7 +133,6 @@ addBookSubmit.addEventListener("click", (event) => {
   if (addBookTitleInput.value !== "" && addBookAuthorInput.value !== "" && addBookPagesInput.value !== "" ) {
     addBookToLibrary();
     addBook.classList.add("hide");
-
     addBookTitleInput.value = "";
     addBookAuthorInput.value = "";
     addBookPagesInput.value = "";
