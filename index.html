@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <h1>Library</h1>
+    <div class="library">
+    </div>
+    <span class="add-book-toggle" title="add a new book to the library">
+        <img class="add-book-icon" src="icons/add_plus_new_icon.png" title="add a new book to the library">
+    </span>
+
+    <div class="add-book hide">
+        <label class="book-title">
+            <span>Book Title</span>
+            <input class="book-title-input" type="text" name="title">
+        </label>
+
+        <label class="book-author">
+            <span>Book Author</span>
+            <input class="book-author-input" type="text" name="title">
+        </label>
+
+        <label class="book-pages">
+            <span>Book Pages</span>
+            <input class="book-pages-input" type="number" name="pages">
+        </label>
+
+        <label class="add-book-read">
+            <span class="checkbox__span">Book read</span>
+            <input class="book-read-input" type="checkbox" class="checkbox__input">
+        </label>
+
+        <button class="add-book-submit" type="submit">Add book</button>
+    </div>
+</body>
+</html>
