@@ -170,7 +170,7 @@ h1 {
   transform: translate(-50%, -50%);
 }
 
-.add-book {
+.add-book-window {
   padding: 0 6rem;
   background-color: lightgray;
   position: fixed;
@@ -225,9 +225,6 @@ h1 {
 
 
 .add-book-submit {
-  /* position: absolute;
-  right: 1rem;
-  bottom: 1rem; */
   padding: 0 2rem;
   margin-left: auto;
 }
