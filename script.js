@@ -6,6 +6,7 @@ const bookAuthorInput = document.querySelector(".book-author-input");
 const bookPagesInput = document.querySelector(".book-pages-input");
 const bookIsReadInput = document.querySelector(".book-read-input");
 const bookSubmit = document.querySelector(".add-book-submit");
+const noBooks = document.querySelector(".no-books");
 
 const myLibrary = [
   {
@@ -43,6 +44,9 @@ function addBookToLibrary() {
   const pages = bookPagesInput.value;
   const isRead = bookIsReadInput.checked;
   const book = new Book(title, author, pages, isRead);
+  if (!myLibrary.length) {
+    noBooks.classList.add("hide");
+  }
   myLibrary.push(book);
   addBookCard(title, author, pages, isRead);
   
@@ -107,6 +111,9 @@ function addBookCard(title, author, pages, isRead) {
     console.log(`${title} removed`)
     library.removeChild(book);
     myLibrary.splice(index, 1);
+    if (!myLibrary.length) {
+      noBooks.classList.remove("hide");
+    }
   })
 }
 
@@ -122,6 +129,10 @@ bookCard();
 document.addEventListener("click", e => {
   if (addBookToggle.contains(e.target) && addBookWindow.classList.contains("hide")) {
     addBookWindow.classList.remove("hide");
+    bookTitleInput.value = "";
+    bookAuthorInput.value = "";
+    bookPagesInput.value = "";
+    bookIsReadInput.checked = false;
   } else if (!addBookWindow.contains(e.target) && !addBookWindow.classList.contains("hide")) {
     addBookWindow.classList.add("hide");
   }
@@ -131,10 +142,6 @@ bookSubmit.addEventListener("click", () => {
   if (bookTitleInput.value !== "" && bookAuthorInput.value !== "" && bookPagesInput.value !== "" ) {
     addBookToLibrary();
     addBookWindow.classList.add("hide");
-    bookTitleInput.value = "";
-    bookAuthorInput.value = "";
-    bookPagesInput.value = "";
-    bookIsReadInput.checked = false;
   }
 });
 
