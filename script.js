@@ -1,12 +1,11 @@
 const library = document.querySelector(".library");
 const addBookToggle = document.querySelector(".add-book-toggle");
-const addBook = document.querySelector(".add-book");
-const body = document.body;
-const addBookTitleInput = document.querySelector(".book-title-input");
-const addBookAuthorInput = document.querySelector(".book-author-input");
-const addBookPagesInput = document.querySelector(".book-pages-input");
-const addBookIsReadInput = document.querySelector(".book-read-input");
-const addBookSubmit = document.querySelector(".add-book-submit");
+const addBookWindow = document.querySelector(".add-book-window");
+const bookTitleInput = document.querySelector(".book-title-input");
+const bookAuthorInput = document.querySelector(".book-author-input");
+const bookPagesInput = document.querySelector(".book-pages-input");
+const bookIsReadInput = document.querySelector(".book-read-input");
+const bookSubmit = document.querySelector(".add-book-submit");
 
 const myLibrary = [
   {
@@ -39,10 +38,10 @@ function Book(title, author, pages, isRead) {
 }
 
 function addBookToLibrary() {
-  const title = addBookTitleInput.value;
-  const author = addBookAuthorInput.value;
-  const pages = addBookPagesInput.value;
-  const isRead = addBookIsReadInput.checked;
+  const title = bookTitleInput.value;
+  const author = bookAuthorInput.value;
+  const pages = bookPagesInput.value;
+  const isRead = bookIsReadInput.checked;
   const book = new Book(title, author, pages, isRead);
   myLibrary.push(book);
   addBookCard(title, author, pages, isRead);
@@ -119,23 +118,50 @@ function bookCard() {
 
 bookCard();
 
+// toggle window
 document.addEventListener("click", e => {
-  if (addBookToggle.contains(e.target) && addBook.classList.contains("hide")) {
-    addBook.classList.remove("hide");
-  } else if (!addBook.contains(e.target) && !addBook.classList.contains("hide")) {
-    addBook.classList.add("hide");
+  if (addBookToggle.contains(e.target) && addBookWindow.classList.contains("hide")) {
+    addBookWindow.classList.remove("hide");
+  } else if (!addBookWindow.contains(e.target) && !addBookWindow.classList.contains("hide")) {
+    addBookWindow.classList.add("hide");
   }
 });
 
-addBookSubmit.addEventListener("click", (event) => {
-  event.preventDefault();
-
-  if (addBookTitleInput.value !== "" && addBookAuthorInput.value !== "" && addBookPagesInput.value !== "" ) {
+bookSubmit.addEventListener("click", () => {
+  if (bookTitleInput.value !== "" && bookAuthorInput.value !== "" && bookPagesInput.value !== "" ) {
     addBookToLibrary();
-    addBook.classList.add("hide");
-    addBookTitleInput.value = "";
-    addBookAuthorInput.value = "";
-    addBookPagesInput.value = "";
-    addBookIsReadInput.checked = false;
+    addBookWindow.classList.add("hide");
+    bookTitleInput.value = "";
+    bookAuthorInput.value = "";
+    bookPagesInput.value = "";
+    bookIsReadInput.checked = false;
   }
 });
+
+["input", "invalid"].forEach((e) => {
+    bookTitleInput.addEventListener(e, () => {
+    if (bookTitleInput.validity.valueMissing) {
+      bookTitleInput.setCustomValidity("Book title required");
+    } else {
+      bookTitleInput.setCustomValidity("");
+    }
+  })
+
+  bookAuthorInput.addEventListener(e, () => {
+    if (bookAuthorInput.validity.valueMissing) {
+      bookAuthorInput.setCustomValidity("Book author required");
+    } else {
+      bookAuthorInput.setCustomValidity("");
+    }
+  })
+
+  bookPagesInput.addEventListener(e, () => {
+    if (bookPagesInput.validity.valueMissing) {
+      bookPagesInput.setCustomValidity("Book pages required");
+    } else if (bookPagesInput.validity.badInput) {
+      bookPagesInput.setCustomValidity("Must be a number!");
+    } else {
+      bookPagesInput.setCustomValidity("");
+    }
+  })
+})
